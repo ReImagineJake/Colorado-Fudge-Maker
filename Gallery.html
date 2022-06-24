@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CFM Website Template</title>
+   
+<style>
+    body {
+  background-color: floralwhite;
+}
+.hello {
+  opacity: 1 !important;
+}
+.full {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+.full .content {
+  background-color: rgba(0,0,0,0.75) !important;
+  height: 100%;
+  width: 100%;
+  display: grid;
+}
+.full .content img {
+  left: 50%;
+  transform: translate3d(0, 0, 0);
+  animation: zoomin 1s ease;
+  max-width: 100%;
+  max-height: 100%;
+  margin: auto;
+}
+.byebye {
+  opacity: 0;
+}
+.byebye:hover {
+  transform: scale(0.2) !important;
+}
+.gallery {
+  display: grid;
+  grid-column-gap: 8px;
+  grid-row-gap: 8px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-auto-rows: 8px;
+}
+.gallery img {
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 0 16px #333;
+  transition: all 1.5s ease;
+}
+.gallery img:hover {
+  box-shadow: 0 0 32px #333;
+}
+.gallery .content {
+  padding: 4px;
+}
+.gallery .gallery-item {
+  transition: grid-row-start 300ms linear;
+  transition: transform 300ms ease;
+  transition: all 0.5s ease;
+  cursor: pointer;
+}
+.gallery .gallery-item:hover {
+  transform: scale(1.025);
+}
+.title {
+  margin-top: 140px;
+}
+ /* Navigation */
+ .bars {
+  /*   background-color:pink; */
+  position: fixed;
+  width: 27px;
+  height: 27px;
+  top: 30px;
+  right: 30px;
+  cursor: pointer;
+  z-index: 101;
+  padding-top:9px;
+}
+
+.bar {
+  width: 100%;
+  height: 4px;
+  background-color: #fff;
+  position: absolute;
+}
+
+span::before,
+span::after {
+  content: "";
+  display: block;
+  background-color: #fff;
+  width: 100%;
+  height: 4px;
+  position: absolute;
+}
+
+.bar::before {
+  transform: translateY(-9px);
+}
+
+.bar::after {
+  transform: translateY(9px);
+}
+
+.bars.active .bar {
+  background-color: transparent;
+}
+
+.bars.active span::before {
+  animation: top-bar 1s;
+  animation-fill-mode: forwards;
+}
+
+.bars.active span::after {
+  animation: bottom-bar 1s;
+  animation-fill-mode: forwards;
+}
+
+
+/* Navbar Links CSS */
+
+#nav {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  transition: all 1s;
+  z-index: -1;
+  overflow: hidden;
+  opacity: 0;
+}
+
+#nav a {
+  color: black;
+  text-decoration: none;
+  line-height: 70vw;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-indent: 50vw;
+  border-radius: 50%;
+  transition: all .5s;
+}
+
+#nav a:hover {
+  background: #357FFD;
+}
+
+ul {
+  list-style: none;
+}
+
+.visible {
+  z-index: 100 !important;
+  opacity: 1 !important;
+}
+
+.shape-circle {
+  border-radius: 50%;
+  width: 20vw;
+  height: 20vw;
+  top: -10vw;
+  right: -10vw;
+  position: absolute;
+  transition: all 1s ease-in-out;
+  background: floralwhite;
+  box-shadow: 0 0px 0px rgba(4, 26, 62, 0.5);
+}
+
+nav.visible li:first-child {
+  width: 200vw;
+  height: 200vw;
+  top: -100vw;
+  right: -100vw;
+  z-index: 5;
+  transition: all .5s ease-in-out;
+  box-shadow: 0 0px 80px rgba(4, 26, 62, 0.5);
+}
+
+nav.visible li:nth-child(2) {
+  width: 150vw;
+  height: 150vw;
+  top: -75vw;
+  right: -75vw;
+  z-index: 6;
+  transition: all .6s ease-in-out;
+  box-shadow: 0 0px 80px rgba(4, 26, 62, 0.5);
+}
+
+nav.visible li:nth-child(3){
+  width: 100vw;
+  height: 100vw;
+  top: -50vw;
+  right: -50vw;
+  z-index: 7;
+  transition: all .7s ease-in-out;
+  box-shadow: 0 0px 80px rgba(4, 26, 62, 0.5);
+}
+
+nav.visible li:last-child{
+  width: 50vw;
+  height: 50vw;
+  top: -25vw;
+  right: -25vw;
+  z-index: 8;
+  transition: all .8s ease-in-out;
+  box-shadow: 0 0px 80px rgba(4, 26, 62, 0.5);
+}
+
+nav.visible li:first-child a {
+  line-height: 265vw !important;
+    text-indent: 15vw !important;
+
+}
+
+nav.visible li:nth-child(2) a {
+  line-height: 200vw !important;
+  text-indent:17vw !important;
+}
+
+nav.visible li:nth-child(3) a {
+  line-height: 137vw !important;
+    text-indent: 17vw !important;
+  
+}
+
+nav.visible li:last-child a {
+  line-height: 70vw !important;
+  text-indent:12vw !important;
+}
+/*formatting for header*/
+.header-img {
+            background-image: url("https://images.unsplash.com/photo-1551578657-a7e74acb0135?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
+            width: 100%;
+            height: 100px;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: fixed;
+            z-index: 1;
+            opacity: .5;
+            top: 0;
+        }
+        header h1 {
+            margin: 0;
+            padding-top: 5px;
+            position: fixed;
+            margin-left: 20px;
+            justify-content: center;
+            border-bottom: 2px solid gold;
+            top: 0;
+        }
+        header {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            top: 0;
+        }
+
+@keyframes top-bar {
+  50% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: rotate(45deg) translateY(0);
+  }
+}
+
+@keyframes bottom-bar {
+  50% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: rotate(-45deg) translateY(0);
+  }
+}
+
+
+@media screen and (max-width:800px) {
+
+  h1 {
+    padding-top:80px;
+    font-size: 60px;
+  }
+}
+        
+@media (max-width: 600px) {
+  .gallery {
+    grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+  }
+}
+@media (max-width: 400px) {
+  .gallery {
+    grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
+  }
+}
+@-moz-keyframes zoomin {
+  0% {
+    max-width: 50%;
+    transform: rotate(-30deg);
+    filter: blur(4px);
+  }
+  30% {
+    filter: blur(4px);
+    transform: rotate(-80deg);
+  }
+  70% {
+    max-width: 50%;
+    transform: rotate(45deg);
+  }
+  100% {
+    max-width: 100%;
+    transform: rotate(0deg);
+  }
+}
+@-webkit-keyframes zoomin {
+  0% {
+    max-width: 50%;
+    transform: rotate(-30deg);
+    filter: blur(4px);
+  }
+  30% {
+    filter: blur(4px);
+    transform: rotate(-80deg);
+  }
+  70% {
+    max-width: 50%;
+    transform: rotate(45deg);
+  }
+  100% {
+    max-width: 100%;
+    transform: rotate(0deg);
+  }
+}
+@-o-keyframes zoomin {
+  0% {
+    max-width: 50%;
+    transform: rotate(-30deg);
+    filter: blur(4px);
+  }
+  30% {
+    filter: blur(4px);
+    transform: rotate(-80deg);
+  }
+  70% {
+    max-width: 50%;
+    transform: rotate(45deg);
+  }
+  100% {
+    max-width: 100%;
+    transform: rotate(0deg);
+  }
+}
+@keyframes zoomin {
+  0% {
+    max-width: 50%;
+    transform: rotate(-30deg);
+    filter: blur(4px);
+  }
+  30% {
+    filter: blur(4px);
+    transform: rotate(-80deg);
+  }
+  70% {
+    max-width: 50%;
+    transform: rotate(45deg);
+  }
+  100% {
+    max-width: 100%;
+    transform: rotate(0deg);
+  }
+}
+</style>
+
+</head>
+
+<body>
+<header>
+  <h1>Jake Ainsworth Final Project</h1>
+  <div class="header-img"></div>
+  <!--HamBurger Icon-->
+<div class="bars" id="nav-action">
+<span class="bar"> </span>
+</div>
+
+<!--Navbar Links-->
+<nav id="nav">
+<ul>
+<li class="shape-circle circle-one"><a href="/Volumes/ReImagine 1/Devry/WBG310-Interactive Web Page Scripting/Course Project/HTML Files/Final Survey.html">Survey</a></li>
+<li class="shape-circle circle-two"><a href="/Volumes/ReImagine 1/Devry/WBG310-Interactive Web Page Scripting/Course Project/HTML Files/Gallery.html">Gallery</a></li>
+<li class="shape-circle circle-three"><a href="/Volumes/ReImagine 1/Devry/WBG310-Interactive Web Page Scripting/Course Project/HTML Files/about.html">About Us</a></li>
+<li class="shape-circle circle-five">
+  <a href="/Volumes/ReImagine 1/Devry/WBG310-Interactive Web Page Scripting/Course Project/HTML Files/index.html">Home</a>
+</li>
+</ul>
+</nav>
+</header>
+<h2 class="title">CFM Gallery</h2>
+
+<div class="gallery" id="gallery">
+    <div class="gallery-item">
+        <div class="content"><img src="https://scontent.fapa1-1.fna.fbcdn.net/v/t39.30808-6/274115615_4786929901425365_2425377451511117207_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=EtJYRB7GF2QAX8qWoLC&tn=QEBWR0OwFq_Aa0KU&_nc_ht=scontent.fapa1-1.fna&oh=00_AT-IoSatWf84Qz81cbdsvh_ELKNhT-Gneb8ABI0T4sEhUA&oe=62B68AC6" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="https://scontent.fapa1-2.fna.fbcdn.net/v/t39.30808-6/274078734_4781304891987866_7267171672134320176_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=TEjEZy-pljEAX8LnnIR&tn=QEBWR0OwFq_Aa0KU&_nc_ht=scontent.fapa1-2.fna&oh=00_AT_HkvdC7ZxhjRwHIx9mnORm4ohwq0CSLxmHf5OjVUsBjw&oe=62B5F5A3" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="https://scontent.fapa1-2.fna.fbcdn.net/v/t39.30808-6/274152343_4786929568092065_6268998908156299910_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=m0wCpu3JkLEAX-ZAb1t&_nc_ht=scontent.fapa1-2.fna&oh=00_AT_MvPoMPNApll5T2Ow88Bug0zA3VW9BxDlR2GNH64kc9A&oe=62B71757" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="https://scontent.fapa1-1.fna.fbcdn.net/v/t39.30808-6/274126456_4781293708655651_780073876074124062_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=mEJXNX0rztQAX8q9Ei3&_nc_ht=scontent.fapa1-1.fna&oh=00_AT9M_y728suKAry5hBoMmN0yiT_dbxwoZCoKsRQkPdBMdA&oe=62B6A6CA" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="https://scontent.fapa1-2.fna.fbcdn.net/v/t39.30808-6/272739797_4718612794923743_7402866384419374026_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=hvcfY8A32NsAX_4YYsJ&_nc_ht=scontent.fapa1-2.fna&oh=00_AT9SsMwFnjS47Y3hKPaQIP9tww6Vb5-vOGPDdv-xyumbpg&oe=62B68455" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="https://scontent.fapa1-1.fna.fbcdn.net/v/t39.30808-6/234411049_4144376412347387_2628594055695194399_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=XrBROMA3q4kAX93DXit&_nc_ht=scontent.fapa1-1.fna&oh=00_AT-glWZ03TVIDhpkxqUrEoSV8SWV96DthdoB2GasgmRjWg&oe=62B78BAC" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="https://scontent.fapa1-2.fna.fbcdn.net/v/t1.6435-9/131943323_3507228639395504_7761280281884987063_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=YJnCylz0TVMAX9QZoqF&_nc_ht=scontent.fapa1-2.fna&oh=00_AT-vCJunfHTUJhhl2lwUalYhC9IJItrb4icVkTMWdOSP9Q&oe=62D7772A" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="https://scontent.fapa1-1.fna.fbcdn.net/v/t1.6435-9/78788308_2543638732421171_7829137678758051840_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=DBCp85h82x4AX_WFAZE&_nc_ht=scontent.fapa1-1.fna&oh=00_AT-RvwHEcetKz7_UQyAFiHp-pjbeNC8pzPHBpMJidiRJkg&oe=62D7A4A8" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="https://scontent.fapa1-2.fna.fbcdn.net/v/t1.6435-9/77168485_2543638375754540_3023460215342235648_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=CuhKMh2HGSsAX8ziAre&_nc_ht=scontent.fapa1-2.fna&oh=00_AT_GXyN-_sxYUEetekLQ0KNhLgdSc0JPxon2VCh9IksDzA&oe=62D8496F" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="https://scontent.fapa1-2.fna.fbcdn.net/v/t1.6435-9/60009630_2170059846445730_6365184224646922240_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=K6_9RbP03J8AX_Nesg4&_nc_ht=scontent.fapa1-2.fna&oh=00_AT9_EPJ2sayuFA0hkrIEkvQiH2LqgPfKMBCs_uXcI3hNDg&oe=62D6E313" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="https://scontent.fapa1-1.fna.fbcdn.net/v/t1.6435-9/70802315_2406780319440347_2521107547478294528_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=1nexPqPaq2cAX9ymEYF&_nc_ht=scontent.fapa1-1.fna&oh=00_AT861Gl23u23QN9gs57KvNMQjWI0eBOL5m-3Zf2ZGE6eIg&oe=62D60A85" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="https://scontent.fapa1-2.fna.fbcdn.net/v/t1.6435-9/60152798_2170059866445728_4612162819926786048_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=w-5IVy5vc8kAX8TIgTQ&_nc_oc=AQktk9hPx8k77lGagi3E-GPiJyRM2hTnYC8Ub6yLTcbkcYGv-MUqhascBz1jQq1sUGHcYcUiNGzlGakZv9E0PTS_&_nc_ht=scontent.fapa1-2.fna&oh=00_AT8Rwep3WIfRMhoT9C3xwW9TxfrSzUZnU3ZWWuT3QPpjXg&oe=62D74CA9" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="https://scontent.fapa1-1.fna.fbcdn.net/v/t1.6435-9/52364594_2041902785928104_3922367875070820352_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=lIA1ba9_Vv8AX92eCdU&tn=QEBWR0OwFq_Aa0KU&_nc_ht=scontent.fapa1-1.fna&oh=00_AT9O-1DDbs1L_gXVY3QsUItMPxnfI_eM5ddQr8uOTZEWsw&oe=62D94CA3" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="https://scontent.fapa1-2.fna.fbcdn.net/v/t1.6435-9/51661759_2041902672594782_7802920884850655232_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=0C46_BcIRsoAX8PvM18&_nc_ht=scontent.fapa1-2.fna&oh=00_AT_oLYXhimai9_auvZtbEYEi4ZAYkf0g_5dBams2ly5Ocw&oe=62D91EBB" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="https://scontent.fapa1-1.fna.fbcdn.net/v/t1.6435-9/51730838_2041902632594786_8402667249025941504_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=nQir-MW1CS4AX8LRJM-&_nc_ht=scontent.fapa1-1.fna&oh=00_AT9JK6BBH-kLMpzUX16PduqSUXE_yvlRLy_36ODlKz1yvg&oe=62D720DE" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="https://scontent.fapa1-2.fna.fbcdn.net/v/t1.6435-9/48381707_1966112196840497_8958729024092241920_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=7BxroK1s0dwAX-sYk41&_nc_ht=scontent.fapa1-2.fna&oh=00_AT-eCTdmKUfy1iID5KdiPcYJTiil9DkeyBbzKuN-wWhIEg&oe=62D5C8A1" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="https://scontent.fapa1-1.fna.fbcdn.net/v/t1.6435-9/49104193_1966103536841363_4628034832914448384_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=-sL6hWREjXYAX8ns2Lr&_nc_ht=scontent.fapa1-1.fna&oh=00_AT99QNmr0LxTSgih60wwH2Fd1MzJP8gwDi9EmlAAtiC_0Q&oe=62D75E5C" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="https://scontent.fapa1-2.fna.fbcdn.net/v/t1.6435-9/48384591_1966103530174697_3208899061889368064_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=hM-2cD-oxWsAX96HWrG&_nc_ht=scontent.fapa1-2.fna&oh=00_AT9x4a4e4db3NkTP82jAk0G3AH3CrfNzQ5Q3toBN08L8Ug&oe=62D5FCD6" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="https://scontent.fapa1-1.fna.fbcdn.net/v/t1.6435-9/48395320_1966100200175030_1938210863991226368_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=90TuEqlrCZQAX8Gmh9d&_nc_ht=scontent.fapa1-1.fna&oh=00_AT--BP7WmRGG-e33X1FnRWqEcQVfxsol9N1ZuGJhSUvM9A&oe=62D64EAD" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="https://scontent.fapa1-2.fna.fbcdn.net/v/t1.6435-9/48394776_1966100166841700_6942901181869981696_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=VVajrRMfsoYAX9OroeZ&_nc_ht=scontent.fapa1-2.fna&oh=00_AT8eEUdmqLzdeJF3fRZc_ZC2pT5651hsZp8mhgZvwucKAg&oe=62D8C92D" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="https://scontent.fapa1-2.fna.fbcdn.net/v/t1.6435-9/47579093_1945561255562258_8355873992652881920_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=t7-l0fe-ckcAX9RVsht&tn=QEBWR0OwFq_Aa0KU&_nc_ht=scontent.fapa1-2.fna&oh=00_AT--d8dmhWn9aBzABMG3IjSiq-MvHBXoX7o8fuE14QcPnQ&oe=62D5E99E" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="https://scontent.fapa1-1.fna.fbcdn.net/v/t1.6435-9/47679569_1945374548914262_2858008029171810304_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=Gmcym3HM_JQAX8cBaqp&_nc_ht=scontent.fapa1-1.fna&oh=00_AT831QB3GtHtcAVT5Gb5EXsnw2gx3yjmf8XjElb6PNu4Ig&oe=62D649C1" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="https://scontent.fapa1-1.fna.fbcdn.net/v/t1.6435-9/47470971_1945374492247601_5427117458295095296_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=hY40PslZFWIAX-81sO_&_nc_ht=scontent.fapa1-1.fna&oh=00_AT90D5yGgkVv0XrNZ1zLqCpAm-w37IDdQDGrffVdd2q4uA&oe=62D96D0D" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="https://scontent.fapa1-2.fna.fbcdn.net/v/t1.6435-9/47209140_1936562373128813_3268013071901130752_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=IQF8mb0w-hcAX-IjFie&_nc_ht=scontent.fapa1-2.fna&oh=00_AT9RToW83qUsqpdZe1bh9_znj5knxBlKiMWdHrrknTFh5Q&oe=62D8D749" alt=""></div>
+    </div>
+    <div class="gallery-item">
+        <div class="content"><img src="https://scontent.fapa1-2.fna.fbcdn.net/v/t1.18169-9/30594534_1610179992433721_5887505038186672514_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=t0kjrAjg_nMAX-xMaA5&_nc_ht=scontent.fapa1-2.fna&oh=00_AT_k2cNOhqvaWMqXWgkE3xvnmZys_TDY0D2tuSNnWOmoDg&oe=62D7898D" alt=""></div>
+    </div>
+</div>
+ 
+
+<footer>
+    <script>
+          //Nav Bar JavaScript
+            // Setting up the Variables
+var bars = document.getElementById("nav-action");
+var nav = document.getElementById("nav");
+
+
+//setting up the listener
+bars.addEventListener("click", barClicked, false);
+
+
+//setting up the clicked Effect
+function barClicked() {
+  bars.classList.toggle('active');
+  nav.classList.toggle('visible');
+}
+        
+        var gallery = document.querySelector('#gallery');
+    var getVal = function (elem, style) { return parseInt(window.getComputedStyle(elem).getPropertyValue(style)); };
+    var getHeight = function (item) { return item.querySelector('.content').getBoundingClientRect().height; };
+    var resizeAll = function () {
+        var altura = getVal(gallery, 'grid-auto-rows');
+        var gap = getVal(gallery, 'grid-row-gap');
+        gallery.querySelectorAll('.gallery-item').forEach(function (item) {
+            var el = item;
+            el.style.gridRowEnd = "span " + Math.ceil((getHeight(item) + gap) / (altura + gap));
+        });
+    };
+    gallery.querySelectorAll('img').forEach(function (item) {
+        item.classList.add('byebye');
+        if (item.complete) {
+            console.log(item.src);
+        }
+        else {
+            item.addEventListener('load', function () {
+                var altura = getVal(gallery, 'grid-auto-rows');
+                var gap = getVal(gallery, 'grid-row-gap');
+                var gitem = item.parentElement.parentElement;
+                gitem.style.gridRowEnd = "span " + Math.ceil((getHeight(gitem) + gap) / (altura + gap));
+                item.classList.remove('byebye');
+            });
+        }
+    });
+    window.addEventListener('resize', resizeAll);
+    gallery.querySelectorAll('.gallery-item').forEach(function (item) {
+        item.addEventListener('click', function () {        
+            item.classList.toggle('full');        
+        });
+    });
+    
+    
+    </script>
+   <!--<div class="gallery">
+        <a href="1.jpg" class="big" rel="rel1">
+            <img src="/Volumes/ReImagine 1/Devry/WBG310-Interactive Web Page Scripting/Course Project/Art/imggallery1.jpg" alt="" title="image-1">
+        </a>
+        <a href="2.jpg" class="big" rel="rel1">
+            <img src="/Volumes/ReImagine 1/Devry/WBG310-Interactive Web Page Scripting/Course Project/Art/imggallery2.jpg" alt="" title="image-2">
+        </a>
+        <a href="3.jpg" class="big" rel="rel2">
+            <img src="/Volumes/ReImagine 1/Devry/WBG310-Interactive Web Page Scripting/Course Project/Art/imggallery3.jpg" alt="" title="image-3">
+        </a>
+        <a href="4.jpg" class="big" rel="rel2">
+            <img src="/Volumes/ReImagine 1/Devry/WBG310-Interactive Web Page Scripting/Course Project/Art/imggallery4.jpg" alt="" title="image-4">
+        </a>
+    </div>-->
+</footer>       
+</body>
+</html>
